@@ -1,0 +1,43 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Thread {
+  id              String    @id @default(uuid()) @db.Uuid
+  anonymousId     String    @db.VarChar(64)
+  title           String?   @db.VarChar(255)
+  email           String?   @db.VarChar(255)
+  startedAt       DateTime  @default(now())
+  lastMessageAt   DateTime  @default(now())
+  archivedAt      DateTime?
+  messages        Message[]
+
+  @@index([anonymousId, lastMessageAt(sort: Desc)])
+  @@map("threads")
+}
+
+model Message {
+  id            String   @id @default(uuid()) @db.Uuid
+  threadId      String   @db.Uuid
+  thread        Thread   @relation(fields: [threadId], references: [id], onDelete: Cascade)
+  role          Role
+  content       String   @db.Text
+  files         Json     @default("[]")
+  trace         Json?
+  akagentRunId  String?  @db.Uuid
+  createdAt     DateTime @default(now())
+
+  @@index([threadId, createdAt])
+  @@map("messages")
+}
+
+enum Role {
+  user
+  assistant
+  system
+}
