@@ -11,7 +11,7 @@ export function middleware(req: NextRequest) {
       value: generateCookieValue(),
       httpOnly: true,
       sameSite: "lax",
-      secure: process.env.NODE_ENV === "production",
+      secure: req.nextUrl.protocol === "https:",
       maxAge: 60 * 60 * 24 * 365, // 1 year
       path: "/",
     });

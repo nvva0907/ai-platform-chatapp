@@ -7,7 +7,7 @@ export const Input = forwardRef<HTMLInputElement, InputHTMLAttributes<HTMLInputE
       <input
         ref={ref}
         className={cn(
-          "w-full h-11 px-3.5 rounded-xl border border-zinc-300 bg-white text-sm",
+          "w-full h-11 px-3.5 rounded-xl border border-zinc-300 bg-white text-base md:text-sm",
           "focus:outline-none focus:ring-2 focus:ring-brand focus:border-transparent",
           "dark:border-zinc-700 dark:bg-zinc-900",
           "disabled:opacity-50",
@@ -25,7 +25,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaHTMLAttributes<H
       <textarea
         ref={ref}
         className={cn(
-          "w-full bg-transparent text-sm resize-none",
+          "w-full bg-transparent text-base md:text-sm resize-none",
           "focus:outline-none",
           className,
         )}
